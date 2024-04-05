@@ -13,7 +13,7 @@ struct ContentView: View {
         VStack {
             Text("\(count)")
             Button("Increment"){
-                count += 1
+                count += 2
             }
         }
         .padding()
