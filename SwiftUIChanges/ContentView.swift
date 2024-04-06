@@ -1,27 +1,26 @@
-//
-//  ContentView.swift
-//  SwiftUIChanges
-//
-//  Created by macOS on 01/04/2024.
-//
-
 import SwiftUI
 
-struct ContentView: View {
-    @State private var count: Int = 0
-    var body: some View {
-        VStack {
-            Text("\(count)")
-            Button("Increment"){
-                count += 2
-            }
+class Light: BindableObject {
+    let didChange = PassthroughSubject<Void, Never>()
+    var isOn: Bool = false {
+        didSet {
+            didChange.send()
         }
-        .padding()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct Room: View {
+    @ObservedObject var light = Light()
+    
+    var body: some View {
+        Toggle(isOn: $light.isOn) {
+            EmptyView()
+        }.fixedSize()
+    }
+}
+
+struct BIndable_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Room()
     }
 }
